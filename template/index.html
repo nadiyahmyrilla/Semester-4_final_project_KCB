@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'index.css' %}">
+{% endblock %}
+
+{% block content %}
+  <section class="hero">
+    <div class="image">
+      <img src="{% static 'images/fullbunga.png' %}" alt="Bunga" class="hero-image">
+    </div>
+    <div class="text">
+      <h1>Klasifikasi Bunga Menggunakan <br> K-Nearest Neighbors (K-NN) RGB</h1>
+      <p class="sub-text">Sesuai dengan jurnal acuan kami:</p>
+      <div class="logos">
+        <div class="logo sinta">Sinta 2</div>
+        <div class="logo jejipin">Jepin</div>
+      </div>
+    </div>
+  </section>
+  <div class="flowers">
+    <div class="card coltsfoot">
+      <div class="card-image">
+        <img src="{% static 'images/coltsfoot.png' %}" alt="Coltsfoot">
+      </div>
+      <div class="card-text">
+        <p>Coltsfoot</p>
+        <r>80 Data</r>
+      </div>
+    </div>
+
+    <div class="card daisy">
+      <div class="card-image">
+        <img src="{% static 'images/daisy.png' %}" alt="Daisy">
+      </div>
+      <div class="card-text">
+        <p>Daisy</p>
+        <r>80 Data</r>
+      </div>
+    </div>
+
+    <div class="card dandelion">
+      <div class="card-image">
+        <img src="{% static 'images/dandelion.png' %}" alt="Dandelion">
+      </div>
+      <div class="card-text">
+        <p>Dandelion</p>
+        <r>80 Data</r>
+      </div>
+    </div>
+
+    <div class="card matahari">
+      <div class="card-image">
+        <img src="{% static 'images/matahari.png' %}" alt="Matahari">
+      </div>
+      <div class="card-text">
+        <p>Matahari</p>
+        <r>80 Data</r>
+      </div>
+    </div>
+  </div>
+{% endblock %}

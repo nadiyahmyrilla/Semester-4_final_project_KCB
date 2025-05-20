@@ -1,0 +1,276 @@
+/* ---------- GLOBAL ---------- */
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #71714c, #71714c);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #ffffff;
+  overflow: hidden;
+  transition: background 0.5s ease;
+}
+
+/* ---------- LAYOUT UTAMA: Horizontal ---------- */
+.horizontal-layout {
+  display: flex;
+  height: calc(100vh - 70px);
+  overflow: hidden;
+  gap: 20px;
+  padding: 20px;
+  animation: fadeIn 1s ease forwards;
+}
+
+/* KIRI: Gambar bunga */
+.layout-left {
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  animation: slideInLeft 1s ease forwards;
+}
+
+.flower-decor-img {
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+  transition: transform 0.5s ease, filter 0.5s ease;
+  cursor: pointer;
+}
+
+.flower-decor-img:hover {
+  transform: scale(1.08) rotate(3deg);
+  filter: drop-shadow(0 0 10px #f1e5bde0);
+}
+
+/* ---------- BACKGROUND KHUSUS PER BUNGA ---------- */
+/* Latar belakang berbeda untuk tiap bunga */
+.flower-decor-img.coltsfoot {
+  background: linear-gradient(to right, #ccb5b2, #bb795c);
+}
+
+.flower-decor-img.daisy {
+  background: linear-gradient(to right, #c6b694, #e9c049);
+}
+
+.flower-decor-img.dandelion {
+  background: linear-gradient(to right, #a0a293, #dedec9);
+}
+
+.flower-decor-img.sunflower {
+  background: linear-gradient(to right, #b49737, #8b752b);
+}
+
+/* KANAN: Tabel & tombol */
+.layout-right {
+  width: 60%;
+  padding: 30px;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 30px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  animation: slideInRight 1s ease forwards;
+}
+
+.layout-right h3 {
+  color: #fee9cc;
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 26px;
+  font-weight: 700;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* ---------- TOMBOL BUNGA ---------- */
+.tab-buttons {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.btn-tab {
+  background: linear-gradient(145deg, #fee9cc, #fee9cc);
+  border: none;
+  border-radius: 40px;
+  padding: 14px 30px;
+  margin: 0 8px;
+  font-weight: 700;
+  color: #616161;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow:
+    4px 4px 6px #e8e8e8,
+    -4px -4px 6px #fee9cc;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-tab::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  background: #f9a825;
+  opacity: 0.3;
+  border-radius: 100%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+  z-index: 0;
+}
+
+.btn-tab:hover::before {
+  width: 200%;
+  height: 400%;
+}
+
+.btn-tab:hover {
+  color: #f57f17;
+  box-shadow:
+    0 0 12px #f9a825,
+    inset 0 0 8px #fbc02d;
+  transform: translateY(-4px);
+}
+
+.btn-tab:active {
+  transform: scale(0.95);
+  box-shadow: inset 0 0 10px #fbc02d;
+}
+
+/* ---------- TABEL ---------- */
+.flower-table h4 {
+  text-align: center;
+  margin: 20px 0 14px 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fee9cc;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.table-scroll {
+  overflow-x: auto;
+  max-height: 60vh;
+  border-radius: 20px;
+  box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.2);
+  animation: fadeIn 0.7s ease;
+}
+
+.custom-table {
+  width: max-content;
+  min-width: 100%;
+  table-layout: auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #fee9cca5;
+  border-radius: 20px;
+  overflow: hidden;
+  font-size: 14px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.custom-table thead {
+  background: linear-gradient(90deg, #fee9ccb2, #fee9ccb2);
+  color: #333;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 13px;
+  box-shadow: inset 0 -3px 8px rgba(0, 0, 0, 0.12);
+}
+
+.custom-table th,
+.custom-table td {
+  background-color: rgba(255, 255, 255, 0.15);
+  text-align: center;
+  padding: 12px 10px;
+  border-bottom: 1px solid #fff176;
+  transition: background-color 0.3s ease;
+}
+
+/* Zebra rows */
+.custom-table tbody tr:nth-child(odd) {
+  background-color: #fee9cca5;
+}
+
+.custom-table tbody tr:nth-child(even) {
+  background-color: #fee9cca5;
+}
+
+/* Hover row */
+.custom-table tbody tr:hover {
+  background-color: #fff17671;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  transform: scale(1.03);
+  box-shadow: 0 6px 20px rgba(255, 241, 118, 0.5);
+  z-index: 2;
+  position: relative;
+}
+
+/* Gambar dalam tabel */
+.flower-img-table {
+  width: 80px;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.flower-img-table:hover {
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 0 20px #fbc02d;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Transition effect on table change */
+.flower-table {
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+
+.flower-table.hide {
+  opacity: 0;
+  pointer-events: none;
+}

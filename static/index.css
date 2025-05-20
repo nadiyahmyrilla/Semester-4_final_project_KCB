@@ -1,0 +1,142 @@
+.hero {
+  animation: slideUpFade 1s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Menyusun gambar dan teks di sebelah kiri */
+  padding: 40px;
+  gap: 40px; /* Menambahkan jarak antara gambar dan teks */
+}
+
+.hero .text {
+  flex: 1;
+  color: #fee9cc;
+}
+
+.hero h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.hero .sub-text {
+  font-size: 1.2rem;
+  margin-top: 20px;
+}
+
+.hero .logos {
+  margin-top: 20px;
+  display: flex;
+  justify-content: left;
+  gap: 30px;
+}
+
+.hero .logo {
+  padding: 10px 40px;
+  border-radius: 50px;  /* Bentuk lonjong */
+  font-weight: bold;
+  display: flex;
+  align-items: center; /* Menyelaraskan tulisan di tengah */
+  justify-content: center; /* Menyelaraskan tulisan di tengah */
+}
+
+.hero .logo.sinta {
+  background-color: #fee9cc; /* Latar belakang kuning untuk Sinta 2 */
+  color: #000;  /* Warna teks hitam */
+}
+
+.hero .logo.jejipin {
+  border: 2px solid #fee9cc;  /* Hanya border biru untuk Jejipin */
+  color: #fee9cc;  /* Warna teks biru */
+  background-color: transparent; /* Tidak ada latar belakang */
+}
+
+.hero .logo.sinta p,
+.hero .logo.jejipin p {
+  margin: 0; /* Menghapus margin pada teks logo */
+}
+
+.hero .image img {
+  max-width: 100%; /* Menjaga gambar responsif */
+  border-radius: 8px;
+  width: 780px; /* Mengatur ukuran gambar lebih besar */
+}
+
+.flowers {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: center; /* Tengah horizontal */
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
+  z-index: 10;
+}
+
+.card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 300px;
+  height: 120px;
+  border-radius: 16px;
+  background-color: rgba(254, 233, 204, 0.2); /* #fee9cc transparan 20% */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.card-image {
+  width: 100px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+/* Warna latar belakang berbeda per bunga */
+.card.coltsfoot .card-image { background-color: #f4a261; }
+.card.daisy .card-image { background-color: #f6e05e; }
+.card.dandelion .card-image { background-color: #9ae6b4; }
+.card.matahari .card-image { background-color: #f687b3; }
+
+.card-image img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.card-text {
+  flex: 1;
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  color: #fee9cc;
+}
+
+.card-text p {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.card-text r {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+/* Efek transisi */
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

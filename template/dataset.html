@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'dataset.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="horizontal-layout">
+  <!-- KIRI: Gambar dekorasi bunga -->
+  <div class="layout-left">
+    <img id="flower-decor" src="{% static 'images/sunflowerBG.png' %}" alt="Flower" class="flower-decor-img">
+  </div>
+
+  <!-- KANAN: Konten tabel dan tombol -->
+  <div class="layout-right">
+    <h3>Dataset Bunga dengan Ekstraksi Fitur Warna</h3>
+
+    <div class="tab-buttons">
+      <button class="btn-tab" onclick="showTable('coltsfoot')">Coltsfoot</button>
+      <button class="btn-tab" onclick="showTable('daisy')">Daisy</button>
+      <button class="btn-tab" onclick="showTable('dandelion')">Dandelion</button>
+      <button class="btn-tab" onclick="showTable('sunflower')">Sunflower</button>
+    </div>
+
+
+    {% for flower, images in data.items %}
+    <div id="{{ flower }}-table" class="flower-table" style="{% if not forloop.first %}display: none;{% endif %}">
+      <h4>{{ flower|title }}</h4>
+      <div class="table-scroll">
+        <table class="table custom-table table-bordered">
+          <thead>
+            <tr>
+              <th>Gambar</th>
+              <th>rataR</th>
+              <th>rataG</th>
+              <th>rataB</th>
+              <th>stdR</th>
+              <th>stdG</th>
+              <th>stdB</th>
+              <th>skewnR</th>
+              <th>skewnG</th>
+              <th>skewnB</th>
+              <th>entropR</th>
+              <th>entropG</th>
+              <th>entropB</th>
+              <th>T</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in images %}
+            <tr>
+              <td><img src="{{ item.img }}" class="flower-img-table"></td>
+              <td>{{ item.mean_R|floatformat:3 }}</td>
+              <td>{{ item.mean_G|floatformat:3 }}</td>
+              <td>{{ item.mean_B|floatformat:3 }}</td>
+              <td>{{ item.std_R|floatformat:3 }}</td>
+              <td>{{ item.std_G|floatformat:3 }}</td>
+              <td>{{ item.std_B|floatformat:3 }}</td>
+              <td>{{ item.skew_R|floatformat:3 }}</td>
+              <td>{{ item.skew_G|floatformat:3 }}</td>
+              <td>{{ item.skew_B|floatformat:3 }}</td>
+              <td>{{ item.entropy_R|floatformat:3 }}</td>
+              <td>{{ item.entropy_G|floatformat:3 }}</td>
+              <td>{{ item.entropy_B|floatformat:3 }}</td>
+              <td>{{ item.T }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  function showTable(flowerName) {
+    const tables = document.querySelectorAll('.flower-table');
+    const decorImg = document.getElementById("flower-decor");
+    const layoutRight = document.querySelector('.layout-right');
+
+    // Reset background class
+    layoutRight.classList.remove("bg-coltsfoot", "bg-daisy", "bg-dandelion", "bg-sunflower");
+    
+    // Sembunyikan semua tabel dengan animasi
+    tables.forEach(table => {
+      if (table.style.display !== 'none') {
+        table.classList.add('hide');
+        setTimeout(() => {
+          table.style.display = 'none';
+          table.classList.remove('hide');
+        }, 600);
+      }
+    });
+
+    // Tampilkan tabel bunga yang diklik
+    setTimeout(() => {
+      const activeTable = document.getElementById(flowerName + '-table');
+      if (activeTable) {
+        activeTable.style.display = 'block';
+        activeTable.style.opacity = 0;
+        setTimeout(() => {
+          activeTable.style.opacity = 1;
+        }, 50);
+      }
+    }, 650);
+
+    // Ganti gambar background bunga
+    decorImg.style.transition = 'opacity 0.5s ease';
+    decorImg.style.opacity = 0;
+    setTimeout(() => {
+      const bgMapping = {
+        coltsfoot: "coltsfootBG",
+        daisy: "daisyBG",
+        dandelion: "dandelionBG",
+        sunflower: "sunflowerBG"
+      };
+      decorImg.src = `/static/images/${bgMapping[flowerName]}.png`;
+      // Tambah di sini:
+      decorImg.classList.remove("coltsfoot", "daisy", "dandelion", "sunflower");
+      decorImg.classList.add(flowerName);
+
+      decorImg.style.opacity = 1;
+    }, 500);
+
+    // Tambahkan class background sesuai bunga
+    layoutRight.classList.add(`bg-${flowerName}`);
+  }
+</script>
+{% endblock %}

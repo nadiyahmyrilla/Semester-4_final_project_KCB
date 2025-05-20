@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'klasifikasi.css' %}">
+{% endblock %}
+
+{% block extra_background %}
+  <div class="backgroundFrom"></div>
+{% endblock %}
+
+{% block content %}
+<h2 class="title">Hasil Klasifikasi Gambar</h2>
+
+<form method="post" enctype="multipart/form-data" class="upload-form">
+  {% csrf_token %}
+  <div class="container">
+
+    <div class="upload-area" id="drop-area" tabindex="0" role="button" aria-label="Upload file atau drag file ke sini">
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#007bff" stroke-width="1.8"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path
+          d="M7 10V9C7 6.23858 9.23858 4 12 4C14.7614 4 17 6.23858 17 9V10C19.2091 10 21 11.7909 21 14C21 15.4806 20.1956 16.8084 19 17.5M7 10C4.79086 10 3 11.7909 3 14C3 15.4806 3.8044 16.8084 5 17.5M7 10C7.43285 10 7.84965 10.0688 8.24006 10.1959M12 12V21M12 12L15 15M12 12L9 15">
+        </path>
+      </svg>
+      <p class="upload-instruction">Browse or drag file here to upload!</p>
+      <p id="file-name">No file selected</p>
+      <svg fill="#007bff" width="36" height="36" viewBox="0 0 32 32" style="margin-top: 10px;">
+        <path d="M15.331 6H8.5v20h15V14.154h-8.169z" />
+        <path d="M18.153 6h-.009v5.342H23.5v-.002z" />
+      </svg>
+      <input id="file" type="file" name="gambar" required hidden>
+    </div>
+
+    {% if hasil %}
+    <div class="result">
+      <img src="{{ gambar_url }}" alt="Gambar yang diklasifikasi" />
+      <p><strong>Hasil Klasifikasi:</strong> {{ hasil }}</p>
+    </div>
+    {% elif error %}
+    <div class="alert alert-danger">
+      <p>{{ error }}</p>
+    </div>
+    {% endif %}
+
+  </div>
+
+  <div class="btn-wrapper">
+    <button type="submit" class="btn btn-primary">Klasifikasikan</button>
+  </div>
+</form>
+
+<script>
+  const fileInput = document.getElementById('file');
+  const fileName = document.getElementById('file-name');
+  const dropArea = document.getElementById('drop-area');
+
+  dropArea.addEventListener('click', () => fileInput.click());
+
+  fileInput.addEventListener('change', () => {
+    fileName.textContent = fileInput.files.length > 0
+      ? fileInput.files[0].name
+      : "No file selected";
+    dropArea.classList.add('file-selected');
+  });
+
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropArea.addEventListener(eventName, e => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropArea.classList.add('dragover');
+    });
+  });
+
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, e => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropArea.classList.remove('dragover');
+    });
+  });
+
+  dropArea.addEventListener('drop', e => {
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      fileInput.files = files;
+      fileName.textContent = files[0].name;
+      dropArea.classList.add('file-selected');
+    }
+  });
+</script>
+
+{% endblock %}

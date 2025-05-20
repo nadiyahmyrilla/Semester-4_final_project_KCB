@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'testing.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+<h2 class="text-center">Dataset Warna Bunga</h2>
+
+<!-- Menu Navigasi -->
+<div class="tab-buttons">
+  <a class="btn-tab active" href="#tabel-rgb">RGB</a>
+  <a class="btn-tab" href="#tabel-evaluasi">Evaluasi</a>
+  <a class="btn-tab" href="#visualisasi">Visualisasi</a>
+</div>
+
+
+
+{% if data %}
+<h3 id="tabel-rgb" class="text-center">Tabel RGB Ekstraksi Fitur</h3>
+{% for flower, images in data.items %}
+<h4 class="text-center">{{ flower }}</h4>
+<div class="flower-grid row justify-content-center mx-auto gx-4 gy-4">
+  {% for item in images %}
+  <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+    <div class="flower-card card p-2">
+      <img src="{{ item.img }}" class="card-img-top rounded" alt="Flower Image">
+      <div class="card-body">
+        <div class="row g-1">
+          <div class="col-6">
+            <div class="feature-box">rataR: {{ item.mean_R|floatformat:3 }}</div>
+          </div>
+          <div class="col-6">
+            <div class="feature-box">rataG: {{ item.mean_G|floatformat:3 }}</div>
+          </div>
+          <div class="col-6">
+            <div class="feature-box">rataB: {{ item.mean_B|floatformat:3 }}</div>
+          </div>
+          <div class="col-6">
+            <div class="feature-box">stdR: {{ item.std_R|floatformat:3 }}</div>
+          </div>
+          <div class="col-6">
+            <div class="feature-box">stdG: {{ item.std_G|floatformat:3 }}</div>
+          </div>
+          <div class="col-6">
+            <div class="feature-box">stdB: {{ item.std_B|floatformat:3 }}</div>
+          </div>
+          <div class="col-6">
+            <div class="feature-box">skewnR: {{ item.skew_R|floatformat:3 }}</div>
+          </div>
+          <div class="col-6">
+            <div class="feature-box">skewnG: {{ item.skew_G|floatformat:3 }}</div>
+          </div>
+          <div class="col-6">
+            <div class="feature-box">skewnB: {{ item.skew_B|floatformat:3 }}</div>
+          </div>
+          <div class="col-6">
+            <div class="feature-box">entropR: {{ item.entropy_R|floatformat:3 }}</div>
+          </div>
+          <div class="col-6">
+            <div class="feature-box">entropG: {{ item.entropy_G|floatformat:3 }}</div>
+          </div>
+          <div class="col-6">
+            <div class="feature-box">entropB: {{ item.entropy_B|floatformat:3 }}</div>
+          </div>
+          <div class="col-12">
+            <div class="feature-box">T: {{ item.T }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endfor %}
+{% endif %}
+
+{% if metrics %}
+<h3 id="tabel-evaluasi" class="text-center mt-5">Tabel Evaluasi Klasifikasi</h3>
+<table class="table table-bordered table-hover bg-light w-75 mx-auto">
+  <thead class="table-warning">
+    <tr>
+      <th>Nilai K</th>
+      <th>Akurasi</th>
+      <th>Presisi</th>
+      <th>Recall</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for k, m in metrics.items %}
+    <tr>
+      <td>k={{ k|slice:"2:" }}</td>
+      <td>{{ m.accuracy|floatformat:2 }}</td>
+      <td>{{ m.precision|floatformat:2 }}</td>
+      <td>{{ m.recall|floatformat:2 }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h3 id="visualisasi" class="text-center mt-5">Visualisasi Evaluasi</h3>
+<div class="d-flex flex-wrap justify-content-center gap-4">
+  <div class="card p-3" style="width: 250px;">
+    <h4 class="text-center">Akurasi</h4>
+    <canvas id="accuracyChart" width="200" height="200"></canvas>
+  </div>
+  <div class="card p-3" style="width: 250px;">
+    <h4 class="text-center">Presisi</h4>
+    <canvas id="precisionChart" width="200" height="200"></canvas>
+  </div>
+  <div class="card p-3" style="width: 250px;">
+    <h4 class="text-center">Recall</h4>
+    <canvas id="recallChart" width="200" height="200"></canvas>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const labels = {{ metrics_keys }};
+  const accuracyData = {{ metrics_accuracy }};
+  const precisionData = {{ metrics_precision }};
+  const recallData = {{ metrics_recall }};
+
+  const chartConfig = (ctx, label, data) => new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: label,
+        data: data,
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#66BB6A', '#BA68C8']
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom' }
+      }
+    }
+  });
+  const tabs = document.querySelectorAll('.btn-tab');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+
+  chartConfig(document.getElementById('accuracyChart'), 'Akurasi', accuracyData);
+  chartConfig(document.getElementById('precisionChart'), 'Presisi', precisionData);
+  chartConfig(document.getElementById('recallChart'), 'Recall', recallData);
+</script>
+{% endif %}
+
+{% endblock %}
