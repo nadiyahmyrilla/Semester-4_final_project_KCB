@@ -77,7 +77,12 @@ def entropy(arr):
     return entropy_value
 
 def home(request):
-    return render(request, 'index.html')
+    # Memuat contoh gambar dari static/images/yourimage.png
+    img_path = os.path.join(settings.BASE_DIR, 'static', 'images', 'yourimage.png')
+    img_url = '/static/images/yourimage.png' if os.path.exists(img_path) else None
+    return render(request, 'index.html', {
+        'sample_image': img_url
+    })
 
 def dataset(request):
     base_dir = os.path.join(settings.BASE_DIR, 'dataset_bunga')
