@@ -7,3 +7,4 @@ opencv-python-headless
 imutils
 scikit-learn
 gunicorn
+whitenoise
