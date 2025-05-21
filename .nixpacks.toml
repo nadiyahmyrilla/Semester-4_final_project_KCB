@@ -1,13 +1,14 @@
 [phases.setup]
 nixPkgs = [
-  "python312",     # atau "python311" tergantung versi Python kamu
-  "zlib",
-  "libjpeg",
-  "libpng",
-  "freetype",
+  "zlib.dev",
+  "libjpeg.dev",
+  "libpng.dev",
+  "freetype.dev",
   "pkg-config",
-  "gcc",           # compiler C
-  "gnumake",       # build tool
+  "mesa",          # <-- ini penting: untuk libGL.so.1
+  "gcc",
+  "gnumake",
+  "python312",
   "python312Packages.setuptools",
   "python312Packages.wheel",
   "python312Packages.pip"
