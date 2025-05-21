@@ -1,0 +1,70 @@
+/* Struktur layout utama */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+}
+
+.body-bg {
+  background-color: #71714c;
+  position: relative;
+  height: 100vh; /* Batas tinggi penuh viewport */
+  display: flex;
+  flex-direction: column;
+  z-index: 0;
+}
+
+/* Navbar */
+.custom-navbar {
+  background-color:rgba(113, 113, 76, 0.5);
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  align-items: center;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px); /* Safari support */
+  position: sticky;
+  top: 0;
+  z-index: 2000;
+}
+
+.custom-navbar .brand {
+  font-weight: bold;
+  color: #fee9cc;
+  font-size: 1.5rem;
+  white-space: nowrap;
+}
+
+.custom-navbar a {
+  color: #fee9cc;
+  text-decoration: none;
+  margin-left: 15px;
+  font-weight: normal;
+}
+
+.custom-navbar a:hover {
+  text-decoration: underline;
+}
+
+.custom-navbar .navbar-right {
+  margin-left: auto;
+  text-align: center;
+  width: 100%;
+}
+
+.custom-navbar .navbar-right a {
+  font-weight: normal;
+  margin-left: 40px;
+}
+
+/* Kontainer konten scroll */
+.container-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+}
