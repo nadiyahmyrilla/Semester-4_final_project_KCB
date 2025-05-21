@@ -1,5 +1,20 @@
 [phases.setup]
-nixPkgs = ["zlib", "libjpeg", "libpng", "freetype", "pkg-config"]
+nixPkgs = [
+  "python312",     # atau "python311" tergantung versi Python kamu
+  "zlib",
+  "libjpeg",
+  "libpng",
+  "freetype",
+  "pkg-config",
+  "gcc",           # compiler C
+  "gnumake",       # build tool
+  "python312Packages.setuptools",
+  "python312Packages.wheel",
+  "python312Packages.pip"
+]
 
 [phases.install]
-cmds = ["pip install -r requirements.txt"]
+cmds = [
+  "pip install --upgrade pip",
+  "pip install -r requirements.txt"
+]
