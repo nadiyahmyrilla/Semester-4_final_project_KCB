@@ -92,7 +92,7 @@ def dataset(request):
     flower_data = {}
     for flower in flower_dirs:
         folder = os.path.join(base_dir, flower)
-        files = os.listdir(folder)
+        files = os.listdir(folder)[:5]
         flower_data[flower] = []
 
         # Mengambil gambar dan menghitung fitur RGB
@@ -166,7 +166,7 @@ def testing(request):
         flower_data = {}
         for flower in flower_dirs:
             folder = os.path.join(base_dir, flower)
-            files = os.listdir(folder)
+            files = os.listdir(folder)[:5]
             flower_data[flower] = []
 
             for img_file in files:
