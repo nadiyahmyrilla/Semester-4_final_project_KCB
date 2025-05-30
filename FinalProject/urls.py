@@ -28,3 +28,5 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static('/dataset_bunga/', document_root=settings.BASE_DIR / 'dataset_bunga')
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
